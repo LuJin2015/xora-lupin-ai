@@ -4,7 +4,7 @@ XLI is a static frontend backed by a Cloudflare Worker. The models listed as Clo
 
 ## Cloudflare Workers AI models
 
-- **Chat:** `@cf/google/gemma-4-26b-a4b-it`, `@cf/moonshotai/kimi-k2.6`, and beta LoRA variants `@cf/google/gemma-7b-it-lora` and `@cf/google/gemma-2b-it-lora`
+- **Chat:** `@cf/google/gemma-4-26b-a4b-it` and beta LoRA variants `@cf/google/gemma-7b-it-lora` and `@cf/google/gemma-2b-it-lora`
 - **Image Studio:** `@cf/black-forest-labs/flux-2-klein-4b` and `@cf/black-forest-labs/flux-2-klein-9b`
 - **Voice Studio:** `@cf/deepgram/aura-2-en`
 - **Transcription:** `@cf/openai/whisper-large-v3-turbo`
@@ -28,7 +28,7 @@ npx wrangler secret put OPENAI_API_KEY --config worker/wrangler.toml
 npx wrangler secret put GEMINI_API_KEY --config worker/wrangler.toml
 ```
 
-**Kimi K2.6 requires a Workers Paid plan or eligible prepaid AI Gateway credits**; it is not available on standard Workers Free billing. Review current model pricing before using it. FLUX, Aura 2, and Whisper also have usage-based pricing. Beta LoRA models may have limitations.
+FLUX, Aura 2, and Whisper also have usage-based pricing. Beta LoRA models may have limitations.
 
 ## Safety and limits
 
