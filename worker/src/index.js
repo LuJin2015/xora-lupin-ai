@@ -43,8 +43,8 @@ const json = (data, status = 200, origin = "") =>
   new Response(JSON.stringify(data), { status, headers: corsHeaders(origin) });
 function safeError(value) {
   return String(value || "Provider request failed.")
-    .replace(/Bearer\\s+[^\\s]+/gi, "Bearer [redacted]")
-    .replace(/key=[^&\\s]+/gi, "key=[redacted]")
+    .replace(/Bearer\s+[^\s]+/gi, "Bearer [redacted]")
+    .replace(/key=[^&\s]+/gi, "key=[redacted]")
     .slice(0, 350);
 }
 function extractText(result) {
