@@ -1,7 +1,6 @@
 const MODELS = {
   chat: [
     { id: "gemma4", label: "Gemma 4 · Cloudflare" },
-    { id: "kimi", label: "Kimi K2.6 · Cloudflare (Paid)" },
     { id: "gemma7b", label: "Gemma 7B LoRA · Beta" },
     { id: "gemma2b", label: "Gemma 2B LoRA · Beta" },
     { id: "gpt", label: "GPT-5 mini · OpenAI API (optional)" },
@@ -18,8 +17,7 @@ const MODELS = {
 const CLOUD_MODELS = {
   gemma4: "@cf/google/gemma-4-26b-a4b-it",
   gemma7b: "@cf/google/gemma-7b-it-lora",
-  gemma2b: "@cf/google/gemma-2b-it-lora",
-  kimi: "@cf/moonshotai/kimi-k2.6"
+  gemma2b: "@cf/google/gemma-2b-it-lora"
 };
 const ALLOWED_ORIGINS = new Set([
   "https://lujin2015.github.io",
