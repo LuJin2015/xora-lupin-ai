@@ -1,33 +1,35 @@
 # XLI — Xora Lupin Intelligence
 
-XLI is a static frontend backed by a Cloudflare Worker. The Worker routes chat requests to the official OpenAI and Google Gemini APIs. Provider keys must stay in Cloudflare Worker secrets and must never be placed in `app.js`, HTML, GitHub, or browser storage.
+XLI is a static frontend backed by a Cloudflare Worker. The models listed as Cloudflare-hosted use the Workers AI binding `env.AI.run()`; their inference requests do not require separate OpenAI or Google API keys.
 
-## Chat models
+## Cloudflare Workers AI models
 
-- **GPT-5 mini** — OpenAI API model ID `gpt-5-mini`
-- **Gemini 3.8 Flash** — Google Gemini API model ID `gemini-3.8-flash`
+- **Chat:** `@cf/google/gemma-4-26b-a4b-it`, `@cf/moonshotai/kimi-k2.6`, and beta LoRA variants `@cf/google/gemma-7b-it-lora` and `@cf/google/gemma-2b-it-lora`
+- **Image Studio:** `@cf/black-forest-labs/flux-2-klein-4b` and `@cf/black-forest-labs/flux-2-klein-9b`
+- **Voice Studio:** `@cf/deepgram/aura-2-en`
+- **Transcription:** `@cf/openai/whisper-large-v3-turbo`
 
-The model selector uses short IDs (`gpt` and `gemini`); the Worker maps these to provider model IDs.
+GPT-5 mini and Gemini 3.8 Flash remain optional external-provider choices and require their own API secrets. They are not needed for the Cloudflare-hosted models.
 
-## Configure the Worker
+## Configure and deploy
 
-Run these commands from the repository root. They prompt for each secret; paste the key only into the terminal prompt, not into chat or a source file:
+From the repository root:
+
+```sh
+npx wrangler deploy --config worker/wrangler.toml
+```
+
+Then open the XLI site, choose **API settings**, and enter the Worker URL. No API keys need to be pasted into XLI or committed to GitHub.
+
+Optional external API secrets only if you explicitly want those providers:
 
 ```sh
 npx wrangler secret put OPENAI_API_KEY --config worker/wrangler.toml
 npx wrangler secret put GEMINI_API_KEY --config worker/wrangler.toml
-npx wrangler deploy --config worker/wrangler.toml
 ```
 
-You can configure only one provider at first; the other model will show a clear missing-secret message until its secret is added. The Worker health endpoint `/api/health` reports whether each key is configured, never the key value.
+**Kimi K2.6 requires a Workers Paid plan or eligible prepaid AI Gateway credits**; it is not available on standard Workers Free billing. Review current model pricing before using it. FLUX, Aura 2, and Whisper also have usage-based pricing. Beta LoRA models may have limitations.
 
-## Costs and safety
+## Safety and limits
 
-- OpenAI API usage is billed separately from a ChatGPT subscription. GPT requests will fail if the API account lacks access or available API billing.
-- Gemini availability and price depend on the Google AI account, model, and current billing/usage limits. Do not enable paid usage without the account owner's permission.
-- Do not commit API keys. If a key is ever pasted into GitHub, a public issue, or a chat, revoke it and create a replacement.
-- This is a prototype. CORS restrictions are not authentication; a public Worker endpoint can still be called by non-browser clients. Before public production use, add Cloudflare rate limiting and abuse controls to prevent unexpected API usage.
-
-## Current scope
-
-GPT and Gemini chat are wired up. Image generation, voice, transcription, and video modes are not connected yet.
+This is a prototype. CORS restrictions are not authentication; a public Worker endpoint can still be called by non-browser clients. Add Cloudflare rate limiting and abuse controls before public production use. Do not commit API keys or paste them into chat.
