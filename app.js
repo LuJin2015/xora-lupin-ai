@@ -1,7 +1,7 @@
 (() => {
 "use strict";
 const $=id=>document.getElementById(id);
-const MODELS={chat:[{id:"gemma4",label:"Gemma 4 · Cloudflare"},{id:"kimi",label:"Kimi K2.6 · Cloudflare (Paid)"},{id:"gemma7b",label:"Gemma 7B LoRA · Beta"},{id:"gemma2b",label:"Gemma 2B LoRA · Beta"},{id:"gpt",label:"GPT-5 mini · OpenAI API (optional)"},{id:"gemini",label:"Gemini 3.8 Flash · Google API (optional)"}],image:[{id:"flux4",label:"FLUX.2 Klein 4B · Cloudflare"},{id:"flux9",label:"FLUX.2 Klein 9B · Cloudflare"}],voice:[{id:"aura2",label:"Deepgram Aura 2 · Cloudflare"}],transcribe:[{id:"whisper",label:"Whisper Large v3 Turbo · Cloudflare"}],video:[]};
+const MODELS={chat:[{id:"gemma4",label:"Gemma 4 · Cloudflare"},{id:"gemma7b",label:"Gemma 7B LoRA · Beta"},{id:"gemma2b",label:"Gemma 2B LoRA · Beta"},{id:"gpt",label:"GPT-5 mini · OpenAI API (optional)"},{id:"gemini",label:"Gemini 3.8 Flash · Google API (optional)"}],image:[{id:"flux4",label:"FLUX.2 Klein 4B · Cloudflare"},{id:"flux9",label:"FLUX.2 Klein 9B · Cloudflare"}],voice:[{id:"aura2",label:"Deepgram Aura 2 · Cloudflare"}],transcribe:[{id:"whisper",label:"Whisper Large v3 Turbo · Cloudflare"}],video:[]};
 const INFO={image:["IMAGE STUDIO","Turn a prompt into an image","Generate images with Cloudflare-hosted FLUX.2 Klein."],voice:["VOICE STUDIO","Give your words a voice","Create speech with Cloudflare-hosted Deepgram Aura 2."],transcribe:["TRANSCRIPTION","Turn audio into text","Choose an audio file to transcribe with Cloudflare-hosted Whisper."],video:["VIDEO LAB","Explore video AI","Video generation is not connected yet."]};
 let mode="chat",busy=false,currentChat=[];
 const api=()=> (localStorage.getItem("xli_api_base")||"").replace(/\/+$/,"");
